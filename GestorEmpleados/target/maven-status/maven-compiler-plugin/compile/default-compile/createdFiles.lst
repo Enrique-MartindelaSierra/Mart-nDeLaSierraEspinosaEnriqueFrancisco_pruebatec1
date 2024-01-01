@@ -1,0 +1,9 @@
+com\enrique\gestorempleados\persistence\EmpleadoJpaController.class
+com\enrique\gestorempleados\persistence\PersistenceController.class
+com\enrique\gestorempleados\persistence\exceptions\PreexistingEntityException.class
+com\enrique\gestorempleados\persistence\exceptions\IllegalOrphanException.class
+com\enrique\gestorempleados\entities\Empleado.class
+com\enrique\gestorempleados\GestorEmpleados.class
+com\enrique\gestorempleados\entities\Empleado_.class
+com\enrique\gestorempleados\entities\LogicController.class
+com\enrique\gestorempleados\persistence\exceptions\NonexistentEntityException.class

@@ -17,7 +17,7 @@ public class EmpleadosUtils {
     private static LogicController logicController = new LogicController();
 
     /**
-     * Maneja un menu interactivo por consola utilizando las funciones de la 
+     * Maneja un menu interactivo por consola utilizando las funciones de la
      * clase EmpleadosUtils
      */
     public static void menu() {
@@ -45,17 +45,17 @@ public class EmpleadosUtils {
     }
 
     /**
-     * Imprime un menu por consola     
+     * Imprime un menu por consola
      */
     private static void printMenu() {
-        System.out.println("---------------------------");
-        System.out.println("|  1 añadir empleado      |");
-        System.out.println("|  2 listar empleado      |");
-        System.out.println("|  3 actualizar empleado  |");
-        System.out.println("|  4 eliminar empleado    |");
-        System.out.println("|  5 buscar empleado      |");
-        System.out.println("|  6 cerrar programa      |");
-        System.out.println("---------------------------");
+        System.out.println("-------------------------------------");
+        System.out.println("|  1 añadir empleado                |");
+        System.out.println("|  2 listar empleados               |");
+        System.out.println("|  3 actualizar empleado            |");
+        System.out.println("|  4 eliminar empleado              |");
+        System.out.println("|  5 buscar empleado por cargo      |");
+        System.out.println("|  6 cerrar programa                |");
+        System.out.println("-------------------------------------");
     }
 
     /**
@@ -69,17 +69,17 @@ public class EmpleadosUtils {
 
         System.out.println("Introduzca el NOMBRE del empleado ");
         empleado.setNombre(sc.nextLine());
-        if (empleado.getNombre().equals("")) {
+        if (empleado.getNombre().isBlank()) {
             throw new WrongValueException();
         }
         System.out.println("Introduzca el APELLIDO del empleado");
         empleado.setApellido(sc.nextLine());
-        if (empleado.getApellido().equals("")) {
+        if (empleado.getApellido().isBlank()) {
             throw new WrongValueException();
         }
         System.out.println("Introduzca el CARGO del empleado");
         empleado.setCargo(sc.nextLine());
-        if (empleado.getCargo().equals("")) {
+        if (empleado.getCargo().isBlank()) {
             throw new WrongValueException();
         }
         System.out.println("Introduzca el SALARIO del empleado en formato: 0.0");
@@ -100,17 +100,17 @@ public class EmpleadosUtils {
 
         System.out.println("Introduzca el NOMBRE del empleado ");
         empleado.setNombre(sc.nextLine());
-        if (empleado.getNombre().equals("")) {
+        if (empleado.getNombre().isBlank()) {
             throw new WrongValueException();
         }
         System.out.println("Introduzca el APELLIDO del empleado");
         empleado.setApellido(sc.nextLine());
-        if (empleado.getApellido().equals("")) {
+        if (empleado.getApellido().isBlank()) {
             throw new WrongValueException();
         }
         System.out.println("Introduzca el CARGO del empleado");
         empleado.setCargo(sc.nextLine());
-        if (empleado.getCargo().equals("")) {
+        if (empleado.getCargo().isBlank()) {
             throw new WrongValueException();
         }
         System.out.println("Introduzca el SALARIO del empleado en formato: 0.0");
@@ -168,11 +168,19 @@ public class EmpleadosUtils {
                     System.out.println("Empleado añadido");
                     done = goBack(done);
                 }
-            } catch (Exception e) {
+            } catch (WrongValueException e) {
                 System.out.println("----!Wrong value or format!----");
-                e.printStackTrace();
+                done = goBack(done);
+
+            } catch (NumberFormatException ex) {
+                System.out.println("----!Error trying to parse Double!----");
+                done = goBack(done);
+
+            } catch (Exception e) {
+                System.out.println("----!Error trying to parse LocalDate!----");
                 done = goBack(done);
             }
+
         }
     }
 
@@ -288,8 +296,8 @@ public class EmpleadosUtils {
             }
 
             empleadosPorCargo.forEach(System.out::println);
+            done = goBack(done);
         }
-        done = goBack(done);
     }
 
     /**

@@ -169,7 +169,7 @@ public class EmpleadosUtils {
                     done = goBack(done);
                 }
             } catch (WrongValueException e) {
-                System.out.println("----!Wrong value or format!----");
+                System.out.println("----!Missing value!----");
                 done = goBack(done);
 
             } catch (NumberFormatException ex) {
@@ -212,38 +212,51 @@ public class EmpleadosUtils {
     private static void actualizarEmpleado() {
         boolean done = false;
         while (!done) {
-            System.out.println("id empleado a editar");
-            int idEditar = Integer.parseInt(sc.nextLine());
-
-            Empleado empleadoEdit = logicController.findEmpleado(idEditar);
-
             try {
-                if (existeEnDB(empleadoEdit.getId())) {
-                    System.out.println("datos empleado: " + empleadoEdit);
+                System.out.println("id empleado a editar");
+                int idEditar = Integer.parseInt(sc.nextLine());
 
-                    boolean ver = false;
-                    while (!ver) {
-                        try {
-                            empleadoEdit = fillEmpleado(empleadoEdit);
-                            if (verifyEmpleado(empleadoEdit)) {
-                                logicController.editEmpleado(empleadoEdit);
-                                System.out.println("Empleado editado");
-                                ver = true;
+                Empleado empleadoEdit = logicController.findEmpleadoById(idEditar);
+
+                try {
+                    if (existeEnDB(empleadoEdit.getId())) {
+                        System.out.println("datos empleado: " + empleadoEdit);
+
+                        boolean ver = false;
+                        while (!ver) {
+                            try {
+                                empleadoEdit = fillEmpleado(empleadoEdit);
+                                if (verifyEmpleado(empleadoEdit)) {
+                                    logicController.editEmpleado(empleadoEdit);
+                                    System.out.println("Empleado editado");
+                                    ver = true;
+                                    done = goBack(done);
+                                } else {
+                                    ver = goBack(ver);
+                                    done = ver;
+                                }
+                            } catch (WrongValueException e) {
+                                System.out.println("----!Missing value!----");
                                 done = goBack(done);
-                            } else {
-                                ver = goBack(ver);
-                                done = ver;
+
+                            } catch (NumberFormatException ex) {
+                                System.out.println("----!Error trying to parse Double!----");
+                                done = goBack(done);
+
+                            } catch (Exception e) {
+                                System.out.println("----!Error trying to parse LocalDate!----");
+                                done = goBack(done);
                             }
-                        } catch (Exception e) {
-                            System.out.println("----!Wrong value or format!----");
-                            e.printStackTrace();
                         }
                     }
+                } catch (Exception ex) {
+                    System.out.println("No se encuentran  Empleados con el id: " + idEditar);
+                    done = goBack(done);
+
                 }
             } catch (Exception ex) {
-                System.out.println("No se encuentran  Empleados con el id: " + idEditar);
+                System.out.println("Missing value of Id");
                 done = goBack(done);
-
             }
         }
     }
@@ -255,23 +268,28 @@ public class EmpleadosUtils {
     private static void eliminarEmpleado() {
         boolean done = false;
         while (!done) {
-            System.out.println("id empleado eliminar");
-            int idEliminar = Integer.parseInt(sc.nextLine());
-            Empleado empleado = logicController.findEmpleado(idEliminar);
             try {
-                if (existeEnDB(empleado.getId())) {
+                System.out.println("id empleado a eliminar");
+                int idEliminar = Integer.parseInt(sc.nextLine());
+                Empleado empleado = logicController.findEmpleadoById(idEliminar);
+                try {
+                    if (existeEnDB(empleado.getId())) {
 
-                    if (verifyEmpleado(empleado)) {
-                        logicController.destroyEmpleado(idEliminar);
-                        System.out.println("Se ha eliminado el empleado");
+                        if (verifyEmpleado(empleado)) {
+                            logicController.destroyEmpleado(idEliminar);
+                            System.out.println("Se ha eliminado el empleado");
+                            done = goBack(done);
+                        } else {
+                            System.out.println("No se ha eliminado el empleado");
+                        }
                         done = goBack(done);
-                    } else {
-                        System.out.println("No se ha eliminado el empleado");
                     }
+                } catch (Exception ex) {
+                    System.out.println("No se encuentran  Empleados con el id: " + idEliminar);
                     done = goBack(done);
                 }
             } catch (Exception ex) {
-                System.out.println("No se encuentran  Empleados con el id: " + idEliminar);
+                System.out.println("Missing value of Id");
                 done = goBack(done);
             }
         }

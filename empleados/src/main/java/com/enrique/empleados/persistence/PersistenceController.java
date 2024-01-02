@@ -22,8 +22,8 @@ public class PersistenceController {
         }
     }
 
-    public Empleado findEmpleado(int idEditar) {
-        return empleadoJpa.findEmpleado(idEditar);
+    public Empleado findEmpleadoById(int idEditar) {
+        return empleadoJpa.findEmpleadoById(idEditar);
     }
 
     public void editEmpleado(Empleado empleadoEdit) {

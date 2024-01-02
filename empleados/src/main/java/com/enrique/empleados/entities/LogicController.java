@@ -15,8 +15,8 @@ public class LogicController {
         persisControl.destroyEmpleado(idEliminar);
     }
 
-    public Empleado findEmpleado(int idEditar) {
-        return persisControl.findEmpleado(idEditar);
+    public Empleado findEmpleadoById(int idEditar) {
+        return persisControl.findEmpleadoById(idEditar);
 
     }
 

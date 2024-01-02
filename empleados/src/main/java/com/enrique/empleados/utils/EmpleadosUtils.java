@@ -219,7 +219,7 @@ public class EmpleadosUtils {
                 Empleado empleadoEdit = logicController.findEmpleadoById(idEditar);
 
                 try {
-                    if (existeEnDB(empleadoEdit.getId())) {
+                      if (null != empleadoEdit) {
                         System.out.println("datos empleado: " + empleadoEdit);
 
                         boolean ver = false;
@@ -272,8 +272,8 @@ public class EmpleadosUtils {
                 System.out.println("id empleado a eliminar");
                 int idEliminar = Integer.parseInt(sc.nextLine());
                 Empleado empleado = logicController.findEmpleadoById(idEliminar);
-                try {
-                    if (existeEnDB(empleado.getId())) {
+                try {             
+                    if (null != empleado) {
 
                         if (verifyEmpleado(empleado)) {
                             logicController.destroyEmpleado(idEliminar);
@@ -316,21 +316,6 @@ public class EmpleadosUtils {
             empleadosPorCargo.forEach(System.out::println);
             done = goBack(done);
         }
-    }
-
-    /**
-     * Funcion para comprobar que el Empleado en la base de datos no sea null
-     *
-     * @return boolean
-     */
-    public static boolean existeEnDB(Integer id) throws WrongValueException {
-
-        if (id == null) {
-            return false;
-        } else {
-            return true;
-        }
-
     }
 
     /**

@@ -12,12 +12,12 @@ public class Empleado implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
-    String nombre;
-    String apellido;
-    String cargo;
-    Double salario;
-    LocalDate fechaInicio;
+    private int id;
+    private String nombre;
+    private String apellido;
+    private String cargo;
+    private Double salario;
+    private LocalDate fechaInicio;
 
     public Empleado() {
     }
